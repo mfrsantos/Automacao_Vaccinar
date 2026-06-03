@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    # If you use a serviceAccountKey.json locally, map it into the container
+    volumes:
+      - ./serviceAccountKey.json:/app/serviceAccountKey.json:ro
+    restart: unless-stopped
+    # Uncomment and use one of the following for development convenience:
+    # volumes:
+    #   - ./:/app
+    #   - /app/node_modules

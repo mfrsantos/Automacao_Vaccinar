@@ -1,0 +1,11 @@
+node_modules
+.env
+serviceAccountKey.json
+dist
+app.js.map
+app.js
+.git
+npm-debug.log
+*.log
+Dockerfile
+docker-compose.yml

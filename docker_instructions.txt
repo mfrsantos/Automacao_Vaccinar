@@ -1,0 +1,54 @@
+Instruções para executar o projeto em Docker
+
+Requisitos:
+- Docker instalado
+- (Opcional) Docker Compose
+
+1) Como construir a imagem (build):
+
+  docker build -t automacao_vaccinar:latest .
+
+2) Como executar com serviceAccountKey.json montado (modo container único):
+
+  docker run --env-file .env -p 3000:3000 -v ./serviceAccountKey.json:/app/serviceAccountKey.json:ro automacao_vaccinar:latest
+
+- Explicação: monta o arquivo `serviceAccountKey.json` dentro do container em `/app/serviceAccountKey.json` (leitura apenas).
+- Garanta que seu `.env` contenha `FIREBASE_API_KEY` e `FIREBASE_DATABASE_URL`.
+
+3) Usando Docker Compose (recomendado para desenvolvimento/teste):
+
+  docker compose up -d --build
+
+- O `docker-compose.yml` já mapeia `serviceAccountKey.json` e carrega variáveis de `.env`.
+
+4) Alternativa sem arquivo: usar variável de ambiente JSON
+
+- Em vez de montar `serviceAccountKey.json`, você pode definir no `.env` a variável `FIREBASE_SERVICE_ACCOUNT_JSON` contendo o JSON da chave. No server, já existe suporte para ler a variável se presente.
+
+5) Logs e debug
+
+- Ver logs do container:
+
+  docker logs -f <container_id>
+
+- Parar containers:
+
+  docker compose down
+
+6) Observações de segurança
+
+- Nunca comite `serviceAccountKey.json` nem `.env` com credenciais.
+- Em produção, use secret manager (AWS Secrets Manager, GCP Secret Manager, ou GitHub Actions Secrets) em vez de montar o arquivo diretamente.
+
+7) Execução no outro computador
+
+- Clone o repositório:
+
+  git clone https://github.com/mfrsantos/Automacao_Vaccinar.git
+  cd Automacao_Vaccinar
+
+- Copie seu `serviceAccountKey.json` para a pasta do projeto e crie/edit seu `.env` baseado em `.env.example`.
+- Execute com Docker Compose (ver passo 3).
+
+---
+Gerado automaticamente por assistente para facilitar testes em outro computador.
