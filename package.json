@@ -1,0 +1,25 @@
+{
+  "name": "automacao-nfse",
+  "version": "1.0.0",
+  "description": "Aplicação ERP Vaccinar TI convertida para TypeScript e Node.js",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "build:client": "esbuild app.ts --bundle --platform=browser --target=es2020 --outfile=app.js --sourcemap",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build": "npm run build:client && npm run build:server",
+    "dev": "ts-node-dev --respawn --transpile-only --esm server.ts",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^13.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.14.2",
+    "esbuild": "^0.19.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
+  }
+}
